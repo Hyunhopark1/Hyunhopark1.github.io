@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알쓸퀴즈</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Poor Story', cursive;
+
+        }
+
+        body {
+            margin: 0px;
+            background: #ffffff;
+
+        }
+
+        /*네비게이션*/
+        .header {
+            background: dodgerblue;
+            position: sticky;
+            top: 0;
+            left: 0;
+            border-bottom: 1px solid #e1e6f1;
+            z-index: 1;
+        }
+
+        .header div {
+            display: inline-block;
+        }
+
+        .logo {
+            padding: 10px;
+        }
+
+        .logo a {
+            color: #000000;
+            font-size: 30px;
+            font-weight: 900;
+            text-decoration: none;
+        }
+
+        .logo-accent {
+            color: #ffffff;
+        }
+
+        .login-btn {
+            position: absolute;
+            right: 32px;
+            top: 16px;
+        }
+
+        .login-btn a {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 400;
+            text-decoration: none;
+        }
+
+        .login-btn a:hover {
+            color: lightgray;
+        }
+
+        /*배너*/
+        .banner {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .banner-title {
+            display: inline-block;
+            background: dodgerblue;
+            color: #000000;
+            font-weight: 900;
+            font-size: 20px;
+            padding: 20px 180px;
+            margin: 0px;
+            border-radius: 25px;
+        }
+
+        /*타이틀*/
+        .title {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .title p {
+            display: inline-block;
+            background: dodgerblue;
+            margin: 0px 5px;
+            padding: 15px;
+            line-height: 20px;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 800;
+            border-radius: 10px;
+        }
+
+        .title p:hover {
+            color: #000000;
+        }
+
+        .title-accent {
+            position: relative;
+            top: -30px;
+        }
+
+        .title-accent:hover {
+            font-size: 30px;
+        }
+
+        .title2 {
+            background: transparent;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .title2 span {
+            background: dodgerblue;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 800;
+            margin: 0;
+            padding: 15px 40px;
+            border-radius: 10px;
+        }
+
+        .title2 span:hover {
+            color: #000000;
+        }
+
+        /*퀴즈 카테고리*/
+        .quizs {
+            margin-top: 150px;
+            text-align: center;
+            background: transparent;
+        }
+
+        .quizs div {
+            width: 500px;
+            display: inline-block;
+            background: dodgerblue;
+            font-size: 20px;
+            padding: 40px 150px;
+            margin: 20px;
+            border-radius: 30px;
+        }
+
+        .quizs a {
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .quiz-flag {
+            position: relative;
+        }
+
+        .hot {
+            padding: 0px 5px;
+            border-radius: 5px;
+            background: red;
+            color: #ffffff;
+            font-weight: 700;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        .quiz-idiom {
+            position: relative;
+        }
+
+        .new {
+            padding: 0px 5px;
+            border-radius: 5px;
+            background: green;
+            color: #ffffff;
+            font-weight: 700;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        .quiz-flag:hover {
+            border: 5px solid red;
+        }
+
+        .quiz-capital:hover {
+            border: 5px solid orange;
+        }
+
+        .quiz-proverb:hover {
+            border: 5px solid rgb(240, 240, 51);
+        }
+
+        .quiz-idiom:hover {
+            border: 5px solid lime;
+        }
+
+        /*랭킹 확인*/
+        .rank {
+            margin-top: 40px;
+            text-align: center;
+            background: transparent;
+
+        }
+
+        .rank-check {
+            display: inline-block;
+            background: #a59e9e88;
+            padding: 40px 510px;
+            border-radius: 20px;
+        }
+
+        .rank-check a {
+            text-decoration: none;
+            color: dodgerblue;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .rank-check a:hover {
+            color: #ffffff;
+        }
+
+        /*footer*/
+        .footer {
+            margin-top: 30px;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+
+        /*시작안내*/
+        .guide-banner {
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 20px 40px;
+            background: rgb(63, 96, 143)
+        }
+
+        .guide-banner h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .guide-banner h3 {
+            font-size: 24px;
+            font-weight: 800;
+            color: lightgray;
+        }
+
+        /* 로그인시 생성된 로그아웃 버튼*/
+        #logout-btn {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 400;
+            text-decoration: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body id="main">
+    <nav class="header">
+        <div class="logo">
+            <a href=AQ.html><span class="logo-accent">? 알쓸</span>퀴즈 ?</a>
+        </div>
+        <div class="login-btn">
+            <a href=login.html id="mylogin">로그인</a>
+        </div>
+    </nav>
+    <div class="banner">
+        <h1 class="banner-title">QUIZ SHOW</h1>
+    </div>
+    <div class="title">
+        <p class="title-accent">알</p>
+        <p>고</p>
+        <p>보</p>
+        <p>면</p>
+        <p class="title-accent">쓸</p>
+        <p>모</p>
+        <p>있</p>
+        <p>는</p>
+    </div>
+    <div class="title2">
+        <span>상식퀴즈</span>
+    </div>
+    <div class="quizs">
+        <a href="flag문제/quiz-flag.html">
+            <div class="quiz-flag">국기
+                <span class="hot">HOT</span>
+            </div>
+        </a>
+        <a href="capital문제/quiz-capital.html">
+            <div class="quiz-capital">수도</div>
+        </a><br>
+        <a href="proverb문제/quiz-proverb.html">
+            <div class="quiz-proverb">속담</div>
+        </a>
+        <a href="idiom문제/quiz-idiom.html">
+            <div class="quiz-idiom">사자성어
+                <span class="new">NEW CATEGORY</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="footer">
+        <hr>
+        <p class="copyright">
+            Copyright © All rights reserved by <strong>A.Q</strong>
+        </p>
+    </div>
+    <div class="guide-banner">
+        <h2>원하시는 카테고리를 클릭하세요!</h2>
+        <h3>퀴즈를 시작합니다.</h3>
+    </div>
+    <script>
+        /*페이지가 load 될때 로컬스테이지에 저장되있던 사용자이름을 가져와 Name변수에 저장,
+        로그인 버튼의 요소를 LoginLink변수에 저장*/
+        window.addEventListener('load', function () {
+            let Name = localStorage.getItem('Name');
+            let loginLink = document.querySelector('#mylogin');
+            /*로그인 상태인경우 로그인버튼의 내용 변경후 로그인버튼 옆에 로그아웃 버튼생성*/
+            if (Name) {
+
+                loginLink.innerText = `${Name}님 환영합니다!`;
+                loginLink.style.color = "pink";
+
+                const logoutBtn = document.createElement('button');
+                logoutBtn.id = 'logout-btn';
+                logoutBtn.innerText = '로그아웃';
+
+                loginLink.parentNode.insertBefore(logoutBtn, loginLink.nextSibling);
+                /*로그아웃 버튼을 클릭하면 로컬스테이지에 저장되어있던 값 삭제 후 다시 "로그인"으로 표시하고
+                   로그아웃 버튼 삭제*/
+                logoutBtn.addEventListener('click', function () {
+
+                    localStorage.removeItem('Name');
+                    loginLink.innerText = "로그인";
+                    loginLink.style.color = "";
+
+                    alert('로그아웃 되었습니다');
+                    logoutBtn.remove();
+                });
+            }
+
+        });
+    </script>
+</body>
+
+</html>
