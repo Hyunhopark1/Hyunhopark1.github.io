@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/963fe78599.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Poor Story', cursive;
+
+        }
+
+        body {
+            margin: 0px;
+            background: #b3aeae;
+
+        }
+
+        .header {
+            background: dodgerblue;
+            position: sticky;
+            width: 100%;
+            top: 0;
+            left: 0;
+            border-bottom: 1px solid #e1e6f1;
+            z-index: 1;
+        }
+
+        .header div {
+            display: inline-block;
+        }
+
+        .logo {
+            padding: 10px;
+        }
+
+        .logo a {
+            color: #000000;
+            font-size: 30px;
+            font-weight: 900;
+            text-decoration: none;
+        }
+
+        .logo-accent {
+            color: #ffffff;
+        }
+
+        .login-btn {
+            position: absolute;
+            right: 32px;
+            top: 16px;
+        }
+
+        .login-btn a {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 400;
+            text-decoration: none;
+        }
+
+        .login-btn a:hover {
+            color: lightgray;
+        }
+
+        .quiz-wrap {
+            display: flex;
+            margin-top: 100px;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .quiz {
+            background: #ffffff;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            border: 5px dodgerblue ridge;
+            margin: 20px;
+        }
+
+        .question {
+            border-bottom: 5px dodgerblue ridge;
+            background: #ffffff;
+            padding: 40px 0px;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .questionask {
+            background: #ffffff;
+            padding: 60px 0px;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .question-hint {
+
+            background: #ffffff;
+            font-size: 30px;
+            font-weight: 700;
+            color: red;
+        }
+
+        .answer {
+            border: 5px dodgerblue ridge;
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        .answer-input {
+            width: 100%;
+            font-size: 25px;
+            color: gray;
+            padding: 20px 30px;
+            border: none;
+            border: 5px #cdcdcd ridge;
+            background: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .answer-input:focus {
+            border: none;
+            color: red;
+        }
+
+        .answer-submit {
+            width: 100%;
+            font-size: 25px;
+            font-weight: 800;
+            color: black;
+            padding: 20px 30px;
+            border: none;
+            border: 5px #cdcdcd ridge;
+            background: #cdcdcd;
+            cursor: pointer;
+        }
+
+        .timer {
+            background: dodgerblue;
+            border: none;
+            font-size: 25px;
+            font-weight: 700;
+            color: black;
+            text-align: center;
+        }
+
+        .time-left {
+            color: #ffffff;
+        }
+
+        .addtime {
+            background: #cdcdcd;
+            border: 3px #a9a9a9 ridge;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .addtime:hover {
+            background: #ffffff;
+            color: #cdcdcd;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="header">
+        <div class="logo">
+            <a href="../AQ.html"> <span class="logo-accent">? 알쓸</span>퀴즈 ?</a>
+        </div>
+        <div class="login-btn">
+            <a href=login.html id="mylogin">로그인</a>
+        </div>
+    </nav>
+    <div class="quiz-wrap">
+        <div class="quiz">
+            <div class="timer">
+                <div class="timer-title">
+                    Timer <i class="fa-regular fa-clock fa-beat-fade"></i>
+                </div>
+                제한시간 : <span class="time-left">0</span>
+            </div>
+            <button class="addtime">시간 연장</button>
+            <div class="question">Q. 다음 설명을 보고 해당하는 사자성어를 입력하시오.</div>
+            <div class="questionask"></div>
+            <div class="question-hint">초성:ㅁㅇㄷㅅ</div>
+            <div class="answer">
+                <input type="text" class="answer-input" placeholder="정답 입력" autofocus>
+                <button class="answer-submit">정답 확인하기</button>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        let count = 0; //정답개수 구하기 위한 변수
+        //문제와 정답 
+        const question = "아무 일도 하지 않으면서 먹기만 함";
+        const correctAnswer = "무위도식";
+        //문제
+        const quizAsk = document.querySelector('.questionask');
+        //정답 입력칸
+        const quizAnswer = document.querySelector('.answer-input');
+        //정답확인버튼
+        const answerCheck = document.querySelector('.answer-submit');
+
+        quizAsk.innerText = question;
+        //정답확인버튼 클릭시 answerconfirm 함수 실행
+        answerCheck.addEventListener('click', answerconfirm);
+        //엔터키 입력시에도 answerconfirm함수 실행
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                answerconfirm();
+            }
+        });
+        //정답확인 함수
+        function answerconfirm() {
+
+            const userAnswer = quizAnswer.value;
+            if (userAnswer === correctAnswer) {
+                alert("정답입니다!");
+                alert('준비된 문제가 모두 끝났습니다 고생하셨습니다^^');
+                count++;
+                localStorage.setItem('count6', count);
+                location.replace('idiomfinal.html');
+            }
+            else {
+                alert("오답입니다.")
+                alert('준비된 문제가 모두 끝났습니다 고생하셨습니다^^');
+                location.replace('idiomfinal.html');
+            }
+        }
+
+        let timeLeft = 10; //남은시간 변수 timeLeft를 10으로 초기화
+
+        //3초부터 1초마다 차례로 시간 감소시키는 함수
+        function reduceTimer() {
+            const Time_left = document.querySelector('.time-left');
+            Time_left.innerText = timeLeft;
+            timeLeft--;
+            //남은시간이 0초이하이면 다음문제로 이동
+            if (timeLeft < 0) {
+                location.replace('idiomfinal.html');
+            } else {
+                //1초마다 함수호출
+                setTimeout(reduceTimer, 1000);
+            }
+        }
+        //함수실행
+        reduceTimer();
+        // 시간 연장 버튼 클릭시 제한시간 5초 추가
+        const timePlus = document.querySelector('.addtime');
+
+        timePlus.addEventListener('click', () => {
+            timeLeft += 5;
+            Time_left.innerText = timeLeft;
+        })
+    </script>
+</body>
+
+</html>

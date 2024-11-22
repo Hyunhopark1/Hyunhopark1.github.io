@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/963fe78599.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Poor Story', cursive;
+
+        }
+
+        body {
+            margin: 0px;
+            background: #b3aeae;
+
+        }
+
+        .header {
+            background: dodgerblue;
+            position: sticky;
+            width: 100%;
+            top: 0;
+            left: 0;
+            border-bottom: 1px solid #b3aeae;
+            z-index: 1;
+        }
+
+        .header div {
+            display: inline-block;
+        }
+
+        .logo {
+            padding: 10px;
+        }
+
+        .logo a {
+            color: #000000;
+            font-size: 30px;
+            font-weight: 900;
+            text-decoration: none;
+        }
+
+        .logo-accent {
+            color: #ffffff;
+        }
+
+        .login-btn {
+            position: absolute;
+            right: 32px;
+            top: 16px;
+        }
+
+        .login-btn a {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 400;
+            text-decoration: none;
+        }
+
+        .login-btn a:hover {
+            color: lightgray;
+        }
+
+        .question {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px 0px;
+        }
+
+        .question p {
+            background: coral;
+            margin: 0;
+            padding: 40px 0px;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+
+        .answers {
+            padding: 20px 0px;
+            padding-left: 0;
+            list-style: none;
+            text-align: center;
+        }
+
+        .answers li {
+            width: 500px;
+            display: inline-block;
+            background: dodgerblue;
+            font-size: 20px;
+            padding: 40px 50px;
+            margin: 20px;
+            border-radius: 30px;
+        }
+
+        .answers li a {
+            text-decoration: none;
+            color: #ffffff;
+            padding: 50px 120px;
+        }
+
+        .answers li:hover {
+            border: 5px solid skyblue;
+        }
+
+        .timer {
+            border: 5px solid black;
+            display: inline-block;
+            width: 200px;
+            font-size: 25px;
+            font-weight: 700;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .timer-title {
+            border-bottom: 5px solid black;
+        }
+
+        .time-left {
+            color: #ffffff;
+        }
+        .addtime{
+            background:#cdcdcd;
+            border:3px #a9a9a9 ridge;
+            cursor:pointer;
+            font-size:20px;
+            font-weight:800;
+            color:#ffffff;
+        }
+        .addtime:hover{
+            background:#ffffff;
+            color:#cdcdcd;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="header">
+        <div class="logo">
+            <a href="../AQ.html"> <span class="logo-accent">? 알쓸</span>퀴즈 ?</a>
+        </div>
+        <div class="login-btn">
+            <a href=login.html id="mylogin">로그인</a>
+        </div>
+    </nav>
+
+    <div class="question">
+        <div class="timer">
+            <div class="timer-title">
+                Timer <i class="fa-regular fa-clock fa-beat-fade"></i>
+            </div>
+            제한시간 : <span class="time-left">0</span>
+        </div>
+        <button class="addtime">시간 연장</button>
+        <p>Q. 가나의 수도는?</p>
+        <br><br>
+
+    </div>
+    <ul class="answers">
+        <li><a href="#" class="wrong">쿠마시</a></li>
+        <li><a href="#" class="answer">아크라</a></li> <br>
+        <li><a href="#" class="wrong">로메</a></li>
+        <li><a href="#" class="wrong">타말</a></li>
+    </ul>
+
+    <script>
+        let count = 0; //정답개수 구하기 위한 변수
+        const Answer = document.querySelector('.answer');
+        Answer.addEventListener('click', () => {
+            alert("정답입니다!");
+            count++;
+            localStorage.setItem('count5', count);
+            location.replace('capital6.html');
+        })
+        const Wrongs = document.querySelectorAll('.wrong');
+        for (let i = 0; i < Wrongs.length; i++) {
+            Wrongs[i].addEventListener('click', () => {
+                alert("오답입니다.");
+                location.replace('capital6.html');
+
+            })
+        }
+
+        let timeLeft = 5; //남은시간 변수 timeLeft를 5으로 초기화
+
+        //5초부터 1초마다 차례로 시간 감소시키는 함수
+        function reduceTimer() {
+            const Time_left = document.querySelector('.time-left');
+            Time_left.innerText = timeLeft;
+            timeLeft--;
+            //남은시간이 0초이하이면 다음문제로 이동
+            if (timeLeft < 0) {
+                location.replace('capital6.html');
+            } else {
+                //1초마다 함수호출
+                setTimeout(reduceTimer, 1000);
+            }
+        }
+        //함수실행
+        reduceTimer();
+        // 시간 연장 버튼 클릭시 제한시간 5초 추가
+        const timePlus = document.querySelector('.addtime');
+
+        timePlus.addEventListener('click', () => {
+            timeLeft += 5;
+            Time_left.innerText = timeLeft;
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+   @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Poor Story', cursive;
+
+}
+
+        body {
+            margin: 0px;
+            background: yellow;
+        }
+
+        .header {
+            background: dodgerblue;
+            position: sticky;
+            width: 100%;
+            top: 0;
+            left: 0;
+            border-bottom: 1px solid #e1e6f1;
+            z-index: 1;
+        }
+
+        .header div {
+            display: inline-block;
+        }
+
+        .logo {
+            padding: 10px;
+        }
+
+        .logo a {
+            color: #000000;
+            font-size: 30px;
+            font-weight: 900;
+            text-decoration: none;
+        }
+
+        .logo-accent {
+            color: #ffffff;
+        }
+
+        .login-btn {
+            position: absolute;
+            right: 32px;
+            top: 16px;
+        }
+
+        .login-btn a {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 400;
+            text-decoration: none;
+        }
+
+        .login-btn a:hover {
+            color: lightgray;
+        }
+        .end{
+            height:100%;
+            text-align: center;
+            padding:200px 0px;
+        }
+
+        .scorebox{
+            font-size:20px;
+            font-weight: 500;
+        }
+        .scorebox span{
+            font-size:30px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="header">
+        <div class="logo">
+            <a href="../AQ.html"> <span class="logo-accent">? 알쓸</span>퀴즈 ?</a>
+        </div>
+        <div class="login-btn">
+            <a href=login.html id="mylogin">로그인</a>
+        </div>
+    </nav>
+
+    <div class="end">
+        <h2>수고하셨습니다!</h2>
+        <div class="scorebox">
+            총 문제 수: <span>6</span>
+            <br>
+            맞춘 문제 수 : <span class="score">0</span>
+        </div>
+    </div>
+
+    <script>
+        let totalCount=0;
+
+        for(let i=1; i<=6; i++)
+        {
+            const count= localStorage.getItem(`count${i}`)
+            if(count) 
+            totalCount +=parseInt(count); // 로컬스토리지에서 가져온 값이므로 정수로 변환하여 총카운터에 다 더함
+        }
+
+        const totalScore=document.querySelector('.score');
+        totalScore.innerText=totalCount;
+
+        for(let i=1; i<=6; i++){
+        localStorage.removeItem(`count${i}`)
+        }
+
+       
+    </script>
+</body>
+
+</html>
